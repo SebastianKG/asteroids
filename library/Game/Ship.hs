@@ -10,7 +10,7 @@ import qualified Graphics.Gloss.Data.Picture as Picture
 import qualified Game.Screen as Screen
 
 shipCollisionRadius :: Float
-shipCollisionRadius = 10
+shipCollisionRadius = 16
 
 data Ship = Ship
   { pos :: (Float, Float)
