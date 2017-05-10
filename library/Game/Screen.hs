@@ -14,7 +14,7 @@ fromTopLeft (x, y) =
     (width, height) = dimensions
   in
     ( x - (fromIntegral width / 2)
-    , y - (fromIntegral height / 2)
+    , (fromIntegral height / 2) - y
     )
 
 screenOffset :: (Int, Int)
