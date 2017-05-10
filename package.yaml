@@ -1,0 +1,56 @@
+benchmarks:
+  asteroids-benchmarks:
+    dependencies:
+    - base
+    - asteroids
+    - criterion
+    ghc-options:
+    - -rtsopts
+    - -threaded
+    - -with-rtsopts=-N
+    main: Main.hs
+    source-dirs: benchmark
+category: Other
+description: asteroids is a new Haskeleton package.
+executables:
+  asteroids:
+    dependencies:
+    - base
+    - asteroids
+    ghc-options:
+    - -rtsopts
+    - -threaded
+    - -with-rtsopts=-N
+    main: Main.hs
+    source-dirs: executable
+extra-source-files:
+- CHANGELOG.md
+- LICENSE.md
+- package.yaml
+- README.md
+- stack.yaml
+ghc-options: -Wall
+github: githubuser/asteroids
+library:
+  dependencies:
+  - base
+  - gloss
+  source-dirs: library
+license: MIT
+maintainer: Author name here
+name: asteroids
+synopsis: A new Haskeleton package.
+tests:
+  asteroids-test-suite:
+    dependencies:
+    - base
+    - asteroids
+    - tasty
+    - tasty-hspec
+    ghc-options:
+    - -rtsopts
+    - -threaded
+    - -with-rtsopts=-N
+    main: Main.hs
+    source-dirs: test-suite
+version: '0.0.0'
