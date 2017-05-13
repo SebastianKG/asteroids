@@ -13,5 +13,5 @@ start = play
   60
   State.initial
   State.render
-  (\_ state -> state)
+  State.handleInput
   State.tick
