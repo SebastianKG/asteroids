@@ -93,9 +93,6 @@ tick :: Float -> State -> State
 tick _ State{player, projectiles, asteroids} =
   let
     (newPlayer, justGeneratedProjectiles) =
-      if Ship.dead player then 
-        (player, []) 
-      else 
         Ship.tick player asteroids
     
     newProjectiles = 
@@ -107,8 +104,11 @@ tick _ State{player, projectiles, asteroids} =
       spawned <- Asteroid.tick a projectiles
       return spawned
   in
-    State
-      { player = newPlayer
-      , projectiles = newProjectiles ++ justGeneratedProjectiles
-      , asteroids = newAsteroids
-      }
+    if Ship.dead player || null asteroids then
+      initial
+    else
+      State
+        { player = newPlayer
+        , projectiles = newProjectiles ++ justGeneratedProjectiles
+        , asteroids = newAsteroids
+        }
