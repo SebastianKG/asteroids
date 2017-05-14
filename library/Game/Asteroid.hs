@@ -32,7 +32,7 @@ littleCollisionRadius :: Float
 littleCollisionRadius = 25
 
 littleSpeed :: Float
-littleSpeed = 2
+littleSpeed = 1.5
 
 data Asteroid = Big
   { pos :: (Float, Float)
@@ -47,9 +47,9 @@ data Asteroid = Big
   }
 
 new :: (Float, Float) -> Float -> Asteroid
-new position facingAngle =
+new pos' facingAngle =
   Big
-    { pos = position
+    { pos = pos'
     , speed = bigSpeed
     , angle = facingAngle
     , collisionRadius = bigCollisionRadius

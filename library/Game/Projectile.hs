@@ -22,10 +22,10 @@ projectileRadius :: Float
 projectileRadius = 3
 
 projectileSpeed :: Float
-projectileSpeed = 7
+projectileSpeed = 8
 
 projectileTtl :: Int
-projectileTtl = 45
+projectileTtl = 35
 
 data Projectile = Projectile
   { pos :: (Float, Float)
