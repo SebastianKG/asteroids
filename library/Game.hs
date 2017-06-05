@@ -1,10 +1,10 @@
 module Game (start) where
 
-import Graphics.Gloss (Display(InWindow), play)
+import           Graphics.Gloss            (Display (InWindow), play)
 import qualified Graphics.Gloss.Data.Color as Color
 
-import Game.Screen (dimensions, screenOffset)
-import qualified Game.State as State
+import           Game.Screen               (dimensions, screenOffset)
+import qualified Game.State                as State
 
 start :: IO ()
 start = play

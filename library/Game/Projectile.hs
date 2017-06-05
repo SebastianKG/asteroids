@@ -9,14 +9,14 @@ module Game.Projectile
   , tick
   ) where
 
-import Data.Fixed (mod')
-import Data.Function ((&))
-import qualified Graphics.Gloss.Data.Color as Color
-import Graphics.Gloss.Data.Picture (Picture)
-import qualified Graphics.Gloss.Data.Picture as Picture
-import Graphics.Gloss.Geometry.Angle (degToRad)
+import           Data.Fixed                    (mod')
+import           Data.Function                 ((&))
+import qualified Graphics.Gloss.Data.Color     as Color
+import           Graphics.Gloss.Data.Picture   (Picture)
+import qualified Graphics.Gloss.Data.Picture   as Picture
+import           Graphics.Gloss.Geometry.Angle (degToRad)
 
-import qualified Game.Screen as Screen
+import qualified Game.Screen                   as Screen
 
 projectileRadius :: Float
 projectileRadius = 3
@@ -28,10 +28,10 @@ projectileTtl :: Int
 projectileTtl = 35
 
 data Projectile = Projectile
-  { pos :: (Float, Float)
+  { pos   :: (Float, Float)
   , speed :: Float
   , angle :: Float
-  , ttl :: Int
+  , ttl   :: Int
   }
 
 new :: (Float, Float) -> Float -> Projectile
@@ -46,7 +46,7 @@ render :: Projectile -> Picture
 render projectile =
   Picture.circleSolid projectileRadius
     & Picture.rotate (angle projectile)
-    & uncurry Picture.translate (Screen.fromTopLeft (pos projectile)) 
+    & uncurry Picture.translate (Screen.fromTopLeft (pos projectile))
     & Picture.color (Color.dark Color.azure)
 
 tick :: Projectile -> Projectile

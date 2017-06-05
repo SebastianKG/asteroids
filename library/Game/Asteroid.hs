@@ -1,6 +1,6 @@
 {-# LANGUAGE NamedFieldPuns #-}
 
-module Game.Asteroid 
+module Game.Asteroid
   ( Asteroid
   , collisionRadius
   , new
@@ -9,18 +9,18 @@ module Game.Asteroid
   , tick
   ) where
 
-import Data.Fixed (mod')
-import Data.Function ((&))
+import           Data.Fixed                    (mod')
+import           Data.Function                 ((&))
 
-import Graphics.Gloss.Data.Picture (Picture)
-import qualified Graphics.Gloss.Data.Picture as Picture
-import qualified Graphics.Gloss.Data.Color as Color
-import Graphics.Gloss.Geometry.Angle (degToRad)
+import qualified Graphics.Gloss.Data.Color     as Color
+import           Graphics.Gloss.Data.Picture   (Picture)
+import qualified Graphics.Gloss.Data.Picture   as Picture
+import           Graphics.Gloss.Geometry.Angle (degToRad)
 
-import Game.Projectile (Projectile)
-import qualified Game.Projectile as Projectile
-import qualified Game.Screen as Screen
-import qualified Game.Vector as Vector
+import           Game.Projectile               (Projectile)
+import qualified Game.Projectile               as Projectile
+import qualified Game.Screen                   as Screen
+import qualified Game.Vector                   as Vector
 
 bigCollisionRadius :: Float
 bigCollisionRadius = 50
@@ -35,14 +35,14 @@ littleSpeed :: Float
 littleSpeed = 1.5
 
 data Asteroid = Big
-  { pos :: (Float, Float)
-  , speed :: Float
-  , angle :: Float
+  { pos             :: (Float, Float)
+  , speed           :: Float
+  , angle           :: Float
   , collisionRadius :: Float
   } | Little
-  { pos :: (Float, Float)
-  , speed :: Float
-  , angle :: Float
+  { pos             :: (Float, Float)
+  , speed           :: Float
+  , angle           :: Float
   , collisionRadius :: Float
   }
 
@@ -59,7 +59,7 @@ render :: Asteroid -> Picture
 render asteroid =
   Picture.circleSolid (collisionRadius asteroid)
     & Picture.rotate (angle asteroid)
-    & uncurry Picture.translate (Screen.fromTopLeft (pos asteroid)) 
+    & uncurry Picture.translate (Screen.fromTopLeft (pos asteroid))
     & Picture.color (Color.greyN 0.7)
 
 tick :: Asteroid -> [Projectile] -> [Asteroid]
@@ -77,7 +77,7 @@ tick asteroid projectiles =
               `mod'` fromIntegral (snd Screen.dimensions)
           )
       }
-    
+
     collided =
       any (collides asteroid) projectiles
   in
@@ -96,7 +96,7 @@ debris Big{pos, angle} =
       , angle = angle'
       , collisionRadius = littleCollisionRadius
       }
-  in 
+  in
     [ particle (angle - 90)
     , particle (angle + 90)
     ]

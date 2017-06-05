@@ -1,6 +1,6 @@
 {-# LANGUAGE NamedFieldPuns #-}
 
-module Game.Ship 
+module Game.Ship
   ( Ship
   , ceaseFire
   , dead
@@ -17,19 +17,19 @@ module Game.Ship
   , tick
   ) where
 
-import Data.Fixed (mod')
-import Data.Function ((&))
-import qualified Graphics.Gloss.Data.Color as Color
-import Graphics.Gloss.Data.Picture (Picture)
-import qualified Graphics.Gloss.Data.Picture as Picture
-import Graphics.Gloss.Geometry.Angle (degToRad)
+import           Data.Fixed                    (mod')
+import           Data.Function                 ((&))
+import qualified Graphics.Gloss.Data.Color     as Color
+import           Graphics.Gloss.Data.Picture   (Picture)
+import qualified Graphics.Gloss.Data.Picture   as Picture
+import           Graphics.Gloss.Geometry.Angle (degToRad)
 
-import Game.Asteroid (Asteroid)
-import qualified Game.Asteroid as Asteroid
-import Game.Projectile (Projectile)
-import qualified Game.Projectile as Projectile
-import qualified Game.Screen as Screen
-import qualified Game.Vector as Vector
+import           Game.Asteroid                 (Asteroid)
+import qualified Game.Asteroid                 as Asteroid
+import           Game.Projectile               (Projectile)
+import qualified Game.Projectile               as Projectile
+import qualified Game.Screen                   as Screen
+import qualified Game.Vector                   as Vector
 
 shipCollisionRadius :: Float
 shipCollisionRadius = 16
@@ -43,21 +43,21 @@ rotationPerTick = 6 -- degrees
 maxCooldown :: Int
 maxCooldown = 30
 
-data RotationDirection 
-  = RotateLeft 
+data RotationDirection
+  = RotateLeft
   | RotateRight
   | Neutral
 
 data Ship = Ship
-  { pos :: (Float, Float)
-  , speed :: Float
-  , angle :: Float
-  , collisionRadius :: Float
-  , cooldown :: Int
-  , shouldShoot :: Bool
+  { pos               :: (Float, Float)
+  , speed             :: Float
+  , angle             :: Float
+  , collisionRadius   :: Float
+  , cooldown          :: Int
+  , shouldShoot       :: Bool
   , rotationDirection :: RotationDirection
-  , moving :: Bool
-  , dead :: Bool
+  , moving            :: Bool
+  , dead              :: Bool
   }
 
 new :: (Float, Float) -> Float -> Ship
@@ -80,22 +80,22 @@ render Ship{angle, collisionRadius, pos} =
     & Picture.scale collisionRadius collisionRadius
     & Picture.rotate (angle + 90)
     & uncurry Picture.translate (Screen.fromTopLeft pos)
-    & Picture.color Color.azure 
+    & Picture.color Color.azure
 
 tick :: Ship -> [Asteroid] -> (Ship, [Projectile])
 tick ship@Ship{pos = (x, y), angle, cooldown, moving, rotationDirection, shouldShoot, speed} asteroids =
   let
     newAngle =
       case rotationDirection of
-        RotateLeft -> angle - rotationPerTick
+        RotateLeft  -> angle - rotationPerTick
         RotateRight -> angle + rotationPerTick
-        Neutral -> angle
-    
+        Neutral     -> angle
+
     shooting = shouldShoot && cooldown == 0
 
     collided =
       any (collides ship) asteroids
-  in 
+  in
     if collided then
       ( ship { dead = True }, [] )
     else
@@ -110,8 +110,8 @@ tick ship@Ship{pos = (x, y), angle, cooldown, moving, rotationDirection, shouldS
           , angle = newAngle
           , cooldown = if shooting then maxCooldown else max 0 (cooldown - 1)
           }
-      , if shooting then 
-          [ Projectile.new (x, y) angle ] 
+      , if shooting then
+          [ Projectile.new (x, y) angle ]
         else
           []
       )
@@ -153,11 +153,11 @@ ceaseFire ship = ship
 
 goingRight :: Ship -> Bool
 goingRight Ship{rotationDirection = RotateRight} = True
-goingRight _ = False
+goingRight _                                     = False
 
 goingLeft :: Ship -> Bool
 goingLeft Ship{rotationDirection = RotateLeft} = True
-goingLeft _ = False
+goingLeft _                                    = False
 
 collides :: Ship -> Asteroid -> Bool
 collides ship asteroid =

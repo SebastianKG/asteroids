@@ -1,4 +1,4 @@
-module Game.Screen 
+module Game.Screen
   ( dimensions
   , fromTopLeft
   , screenOffset

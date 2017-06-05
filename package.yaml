@@ -1,17 +1,5 @@
-benchmarks:
-  asteroids-benchmarks:
-    dependencies:
-    - base
-    - asteroids
-    - criterion
-    ghc-options:
-    - -rtsopts
-    - -threaded
-    - -with-rtsopts=-N
-    main: Main.hs
-    source-dirs: benchmark
-category: Other
-description: asteroids is a new Haskeleton package.
+category: Game
+description: A very simple version of asteroids in Haskell.
 executables:
   asteroids:
     dependencies:
@@ -37,20 +25,7 @@ library:
   - gloss
   source-dirs: library
 license: MIT
-maintainer: Author name here
+maintainer: Sebastian Kazenbroot-Guppy
 name: asteroids
-synopsis: A new Haskeleton package.
-tests:
-  asteroids-test-suite:
-    dependencies:
-    - base
-    - asteroids
-    - tasty
-    - tasty-hspec
-    ghc-options:
-    - -rtsopts
-    - -threaded
-    - -with-rtsopts=-N
-    main: Main.hs
-    source-dirs: test-suite
+synopsis: A very simple version of asteroids in Haskell.
 version: '0.0.0'
